@@ -1,6 +1,10 @@
 const graphql = require('graphql');
+// lodash is used in the rootquery to help find books
+const _ = require('lodash');
 
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+
+
 
 // First you define types
 // second you define relationships
@@ -25,7 +29,8 @@ const RootQuery = new GraphQLObjectType({
             // when searching for books in the schema
             args: { id: { type: GraphQLString } },
             resolve(parent, args){
-                // code to get data from database/other source
+                // This tells graphql how to data the data when someone makes a request
+                return _.find(books, { id: args.id });
             }
         }
     }
